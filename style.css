@@ -8,29 +8,26 @@ body {
   font-family: 'Georgia', serif;
 }
 
-/* Bigger device body */
 #kindle-body {
   background-color: #111;
   padding: 30px;
   border-radius: 20px;
   box-shadow: 0 0 40px rgba(0,0,0,0.5);
-}
-
-/* Bigger reading screen */
-#kindle-screen {
-  position: relative;
-  width: 800px;
-  height: 600px;
   max-width: 95vw;
   max-height: 90vh;
-  border-radius: 10px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background-color: #f5f1e1;
+  width: 800px;
+  height: 600px;
 }
 
-/* Header / toolbar */
+#kindle-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #f5f1e1;
+  overflow: hidden;
+}
+
 header {
   background-color: rgba(221, 215, 195, 0.9);
   padding: 10px;
@@ -54,32 +51,27 @@ button, .upload-label {
   user-select: none;
 }
 
-/* Reader area */
 #reader {
   flex: 1;
   padding: 20px;
-  line-height: 1.6;
   font-size: 18px;
+  line-height: 1.6;
   overflow-y: auto;
   color: #222;
-  background-color: white;
+  font-family: Georgia, serif;
+  outline: none;
+  white-space: pre-wrap;
 }
 
-/* EPUB.js content must fill reader */
-#reader > iframe {
-  width: 100% !important;
-  height: 100% !important;
-  border: none !important;
+#reader:empty::before {
+  content: attr(placeholder);
+  color: #999;
 }
 
-/* Drag & drop overlay */
 #drop-overlay {
   display: none;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-color: rgba(0,0,0,0.5);
   color: white;
   font-size: 24px;
