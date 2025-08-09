@@ -2,6 +2,7 @@ let fontSize = 18;
 const reader = document.getElementById("reader");
 const dropOverlay = document.getElementById("drop-overlay");
 
+// Font size controls
 document.getElementById("increase").addEventListener("click", () => {
   fontSize += 1;
   reader.style.fontSize = fontSize + "px";
@@ -12,10 +13,13 @@ document.getElementById("decrease").addEventListener("click", () => {
   reader.style.fontSize = fontSize + "px";
 });
 
-document.getElementById("font-upload").addEventListener("change", handleFontFile);
+// File upload button
+document.getElementById("font-upload").addEventListener("change", (event) => {
+  handleFontFile(event.target.files[0]);
+});
 
-function handleFontFile(event) {
-  const file = event.target.files ? event.target.files[0] : event;
+// Handle font loading
+function handleFontFile(file) {
   if (!file) return;
 
   const readerFile = new FileReader();
@@ -32,7 +36,7 @@ function handleFontFile(event) {
   readerFile.readAsArrayBuffer(file);
 }
 
-// Drag-and-drop support
+// Drag-and-drop events
 document.addEventListener("dragover", (e) => {
   e.preventDefault();
   dropOverlay.style.display = "flex";
