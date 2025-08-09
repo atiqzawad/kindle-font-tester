@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kindle Font & EPUB Viewer</title>
+  <title>Kindle-Style Text Viewer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -16,25 +16,15 @@
 
           <label for="font-upload" class="upload-label">Choose Font</label>
           <input type="file" id="font-upload" accept=".ttf,.otf" hidden />
-
-          <label for="epub-upload" class="upload-label">Choose EPUB</label>
-          <input type="file" id="epub-upload" accept=".epub" hidden />
-
-          <button id="prev-page" disabled>‹ Prev</button>
-          <button id="next-page" disabled>Next ›</button>
         </div>
       </header>
 
-      <main id="reader">
-        Drop or select an EPUB or font file to preview here.
-      </main>
+      <main id="reader" contenteditable="true" spellcheck="false" placeholder="Type or paste your text here..."></main>
 
-      <div id="drop-overlay">Drop EPUB or font file here</div>
+      <div id="drop-overlay">Drop font file here</div>
     </div>
   </div>
 
-  <!-- EPUB.js -->
-  <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
