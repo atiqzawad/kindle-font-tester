@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kindle Font & EPUB Viewer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -13,13 +13,17 @@
         <div class="controls">
           <button id="decrease">A-</button>
           <button id="increase">A+</button>
+
           <label for="font-upload" class="upload-label">Choose Font</label>
-          <input type="file" id="font-upload" accept=".ttf,.otf" hidden>
+          <input type="file" id="font-upload" accept=".ttf,.otf" hidden />
+
+          <label for="epub-upload" class="upload-label">Choose EPUB</label>
+          <input type="file" id="epub-upload" accept=".epub" hidden />
         </div>
       </header>
 
       <main id="reader" contenteditable="true">
-        Drop an EPUB or font file here to preview.
+        Drop or select an EPUB or font file to preview here.
       </main>
 
       <div id="drop-overlay">Drop EPUB or font file here</div>
