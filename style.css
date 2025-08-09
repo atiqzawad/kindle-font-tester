@@ -1,74 +1,92 @@
-let fontSize = 18;
-const reader = document.getElementById("reader");
-const dropOverlay = document.getElementById("drop-overlay");
-
-// Font size controls
-document.getElementById("increase").addEventListener("click", () => {
-  fontSize += 1;
-  reader.style.fontSize = fontSize + "px";
-});
-
-document.getElementById("decrease").addEventListener("click", () => {
-  fontSize -= 1;
-  reader.style.fontSize = fontSize + "px";
-});
-
-// Handle font uploads
-document.getElementById("font-upload").addEventListener("change", (event) => {
-  handleFontFile(event.target.files[0]);
-});
-
-function handleFontFile(file) {
-  if (!file) return;
-
-  const readerFile = new FileReader();
-  readerFile.onload = (e) => {
-    const fontName = file.name.split(".")[0];
-    const font = new FontFace(fontName, e.target.result);
-    font.load().then((loadedFont) => {
-      document.fonts.add(loadedFont);
-      reader.style.fontFamily = `'${fontName}'`;
-    }).catch(err => {
-      alert("Failed to load font: " + err);
-    });
-  };
-  readerFile.readAsArrayBuffer(file);
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222;
+  font-family: 'Georgia', serif;
 }
 
-// Handle EPUB uploads
-function handleEpubFile(file) {
-  reader.innerHTML = ""; // clear previous content
-  const book = ePub(URL.createObjectURL(file));
-  const rendition = book.renderTo("reader", {
-    width: "100%",
-    height: "100%"
-  });
-  rendition.display();
+/* Bigger device body */
+#kindle-body {
+  background-color: #111;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
 }
 
-// Drag-and-drop events
-document.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  dropOverlay.style.display = "flex";
-});
+/* Bigger reading screen */
+#kindle-screen {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  max-width: 95vw;
+  max-height: 90vh;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f1e1;
+}
 
-document.addEventListener("dragleave", (e) => {
-  if (e.target === document || e.target === reader) {
-    dropOverlay.style.display = "none";
-  }
-});
+/* Header / toolbar */
+header {
+  background-color: rgba(221, 215, 195, 0.9);
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
 
-document.addEventListener("drop", (e) => {
-  e.preventDefault();
-  dropOverlay.style.display = "none";
-  const file = e.dataTransfer.files[0];
-  if (!file) return;
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-  if (file.name.endsWith(".ttf") || file.name.endsWith(".otf")) {
-    handleFontFile(file);
-  } else if (file.name.endsWith(".epub")) {
-    handleEpubFile(file);
-  } else {
-    alert("Please drop a valid .ttf, .otf, or .epub file.");
-  }
-});
+button, .upload-label {
+  background-color: #f0ede3;
+  border: 1px solid #aaa;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+}
+
+/* Reader area */
+#reader {
+  flex: 1;
+  padding: 20px;
+  line-height: 1.6;
+  font-size: 18px;
+  overflow-y: auto;
+  color: #222;
+  background-color: white;
+}
+
+/* EPUB.js content must fill reader */
+#reader > iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+}
+
+/* Drag & drop overlay */
+#drop-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 100;
+  display: flex;
+  user-select: none;
+}
