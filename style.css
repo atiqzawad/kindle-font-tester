@@ -1,13 +1,15 @@
+/* Kindle outer bezel */
 body {
   margin: 0;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #222; /* Kindle bezel background */
+  background-color: #222;
   font-family: 'Georgia', serif;
 }
 
+/* Kindle device body */
 #kindle-body {
   background-color: #111;
   padding: 20px;
@@ -15,18 +17,24 @@ body {
   box-shadow: 0 0 40px rgba(0,0,0,0.5);
 }
 
+/* Kindle screen using Paperwhite background */
 #kindle-screen {
-  background-color: #f5f1e1;
-  border-radius: 10px;
-  overflow: hidden;
+  position: relative;
   width: 400px;
   max-width: 90vw;
+  border-radius: 10px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  background-image: url('images/paperwhite.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
+/* Header / toolbar */
 header {
-  background-color: #ddd7c3;
+  background-color: rgba(221, 215, 195, 0.9);
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid #ccc;
@@ -46,14 +54,18 @@ button, .upload-label {
   font-size: 14px;
 }
 
+/* Reader area */
 #reader {
   flex: 1;
   padding: 20px;
   line-height: 1.6;
   font-size: 18px;
   overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.85); /* readability overlay */
+  color: #222;
 }
 
+/* Drag & drop overlay */
 #drop-overlay {
   display: none;
   position: absolute;
@@ -64,7 +76,6 @@ button, .upload-label {
   background-color: rgba(0,0,0,0.5);
   color: white;
   font-size: 24px;
-  display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
