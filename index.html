@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kindle Font Tester</title>
+  <title>Kindle Font & EPUB Viewer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -19,13 +19,15 @@
       </header>
 
       <main id="reader" contenteditable="true">
-        This is your Kindle-style reading area.  
-        You can drag and drop a `.ttf` or `.otf` font file here to see how it looks.
+        Drop an EPUB or font file here to preview.
       </main>
 
-      <div id="drop-overlay">Drop font file here</div>
+      <div id="drop-overlay">Drop EPUB or font file here</div>
     </div>
   </div>
+
+  <!-- EPUB.js -->
+  <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
