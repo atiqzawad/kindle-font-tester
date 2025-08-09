@@ -26,6 +26,12 @@ body {
   border-radius: 10px;
   background-color: #f5f1e1;
   overflow: hidden;
+
+  /* Add subtle e-paper paper texture */
+  background-image:
+    repeating-radial-gradient(circle at center, #e5e1d8 0, #e5e1d8 1px, #f5f1e1 2px, #f5f1e1 5px),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 2px, transparent 6px);
+  background-blend-mode: multiply;
 }
 
 header {
@@ -61,6 +67,14 @@ button, .upload-label {
   font-family: Georgia, serif;
   outline: none;
   white-space: pre-wrap;
+
+  /* Center text vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Ensure multiline text wraps */
+  text-align: center;
 }
 
 #reader:empty::before {
