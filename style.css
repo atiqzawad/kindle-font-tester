@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222; /* Kindle bezel background */
+  font-family: 'Georgia', serif;
+}
+
+#kindle-body {
+  background-color: #111;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+#kindle-screen {
+  background-color: #f5f1e1;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 400px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: #ddd7c3;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+button, .upload-label {
+  background-color: #f0ede3;
+  border: 1px solid #aaa;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#reader {
+  flex: 1;
+  padding: 20px;
+  line-height: 1.6;
+  font-size: 18px;
+  overflow-y: auto;
+}
+
+#drop-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
