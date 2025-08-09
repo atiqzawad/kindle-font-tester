@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kindle Font Tester</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="kindle-body">
+    <div id="kindle-screen">
+      <header>
+        <div class="controls">
+          <button id="decrease">A-</button>
+          <button id="increase">A+</button>
+          <label for="font-upload" class="upload-label">Choose Font</label>
+          <input type="file" id="font-upload" accept=".ttf,.otf" hidden>
+        </div>
+      </header>
+
+      <main id="reader" contenteditable="true">
+        This is your Kindle-style reading area.  
+        You can drag and drop a `.ttf` or `.otf` font file here to see how it looks.
+      </main>
+
+      <div id="drop-overlay">Drop font file here</div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
