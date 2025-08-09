@@ -1,28 +1,41 @@
 let fontSize = 18;
 const reader = document.getElementById("reader");
 const dropOverlay = document.getElementById("drop-overlay");
-let rendition;  // EPUB rendition object
+const increaseBtn = document.getElementById("increase");
+const decreaseBtn = document.getElementById("decrease");
+const fontUpload = document.getElementById("font-upload");
+const epubUpload = document.getElementById("epub-upload");
+const nextPageBtn = document.getElementById("next-page");
+const prevPageBtn = document.getElementById("prev-page");
 
-// Font size controls
-document.getElementById("increase").addEventListener("click", () => {
-  fontSize += 1;
-  reader.style.fontSize = fontSize + "px";
-  if (rendition) rendition.themes.fontSize(fontSize + "px");
+let rendition = null;
+
+function updateFontSize(size) {
+  fontSize = size;
+  if (rendition) {
+    rendition.themes.fontSize(fontSize + "px");
+  } else {
+    reader.style.fontSize = fontSize + "px";
+  }
+}
+
+// Increase font size
+increaseBtn.addEventListener("click", () => {
+  updateFontSize(fontSize + 1);
 });
 
-document.getElementById("decrease").addEventListener("click", () => {
-  fontSize -= 1;
-  reader.style.fontSize = fontSize + "px";
-  if (rendition) rendition.themes.fontSize(fontSize + "px");
+// Decrease font size
+decreaseBtn.addEventListener("click", () => {
+  if (fontSize > 6) updateFontSize(fontSize - 1);
 });
 
-// Font file upload
-document.getElementById("font-upload").addEventListener("change", (event) => {
+// Load font from file
+fontUpload.addEventListener("change", (event) => {
   handleFontFile(event.target.files[0]);
 });
 
-// EPUB file upload
-document.getElementById("epub-upload").addEventListener("change", (event) => {
+// Load EPUB from file input
+epubUpload.addEventListener("change", (event) => {
   handleEpubFile(event.target.files[0]);
 });
 
@@ -35,9 +48,12 @@ function handleFontFile(file) {
     const font = new FontFace(fontName, e.target.result);
     font.load().then((loadedFont) => {
       document.fonts.add(loadedFont);
-      reader.style.fontFamily = `'${fontName}'`;
-      if (rendition) rendition.themes.font(fontName);
-    }).catch(err => {
+      if (rendition) {
+        rendition.themes.font(fontName);
+      } else {
+        reader.style.fontFamily = `'${fontName}'`;
+      }
+    }).catch((err) => {
       alert("Failed to load font: " + err);
     });
   };
@@ -49,26 +65,31 @@ function handleEpubFile(file) {
 
   // Clear old content
   reader.innerHTML = "";
-
-  const book = ePub(URL.createObjectURL(file));
+  reader.contentEditable = false; // Disable editing for EPUB
 
   if (rendition) {
-    rendition.destroy(); // Remove old rendition if exists
+    rendition.destroy();
+    rendition = null;
   }
 
+  const book = ePub(URL.createObjectURL(file));
   rendition = book.renderTo("reader", {
     width: "100%",
     height: "100%",
   });
 
   rendition.themes.fontSize(fontSize + "px");
-
   rendition.display();
 
-  // Optional: listen for location change for further UI controls
+  // Enable pagination buttons
+  nextPageBtn.disabled = false;
+  prevPageBtn.disabled = false;
+
+  nextPageBtn.onclick = () => rendition.next();
+  prevPageBtn.onclick = () => rendition.prev();
 }
 
-// Drag and drop handlers
+// Drag and drop events
 document.addEventListener("dragover", (e) => {
   e.preventDefault();
   dropOverlay.style.display = "flex";
